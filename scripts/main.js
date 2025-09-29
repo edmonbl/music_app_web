@@ -54,6 +54,11 @@ function loadSong(i){
 media.addEventListener('loadedmetadata', () => {
     progress_bar.max = 100;
     progress_bar.value = 0;
+    
+    // Update total duration display
+    const duration = formatTime(media.duration);
+    document.getElementById('total-duration').textContent = duration;
+    
     if(play_btn.classList.contains("pause")){
         media.play();
     }
@@ -68,6 +73,10 @@ media.ontimeupdate = function updateProgressBar() {
     if (media.duration) {
         const progress_value = (this.currentTime / this.duration) * 100;
         progress_bar.value = progress_value;
+        
+        // Update current time display
+        const currentTime = formatTime(this.currentTime);
+        document.getElementById('current-time').textContent = currentTime;
     }
 }
 
@@ -110,5 +119,14 @@ function playPause(){
         play_btn.classList.add("pause");
         play_btn.innerText = "⏸";
     }
+}
+
+// Helper function to format time in MM:SS format
+function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
+    
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
 
