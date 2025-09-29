@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,10 +12,10 @@
         <div class="music-player">
             <nav>
                 <div class="circle">
-                    <span>back</span>
+                    <span>←</span>
                 </div>
                 <div class="circle">
-                    <span>bars</span>
+                    <span>≡</span>
                 </div>
             </nav>
 
@@ -25,17 +25,19 @@
                 <h3 id="artist"></h3>
             </div>
 
-            <div class="audio">
-                <audio controls id="media" hidden>
-                    <!--<source id="audio" src="" type="audio/mpeg">-->
-                </audio>
-                <input type="range" value="0" id="progress">
-            </div>
+            <div class="bottom-controls">
+                <div class="audio">
+                    <audio controls id="media" hidden>
+                        <!--<source id="audio" src="" type="audio/mpeg">-->
+                    </audio>
+                    <input type="range" value="0" id="progress">
+                </div>
 
-            <div class="song-controls">
-                <span id="lastest">last</span>
-                <span id="play" class="play">play</span>
-                <span id="forward">forward</span>
+                <div class="song-controls">
+                    <span id="lastest">⏮</span>
+                    <span id="play" class="play">▶</span>
+                    <span id="forward">⏭</span>
+                </div>
             </div>
 
         </div>
