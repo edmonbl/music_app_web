@@ -1,0 +1,57 @@
+<div class="center-panel">
+  <div class="album-container">
+    <img 
+      [src]="playbackState.currentSong?.albumArt || 'assets/media/default_img.jpg'" 
+      [alt]="playbackState.currentSong?.title || 'Album Art'"
+      id="song-img"
+    >
+    <div class="vinyl-effect"></div>
+  </div>
+
+  <div class="song-info">
+    <h1>{{ playbackState.currentSong?.title || 'No Song Selected' }}</h1>
+    <h3>{{ playbackState.currentSong?.artist || 'Unknown Artist' }}</h3>
+  </div>
+
+  <div class="time-display">
+    <span class="current-time">{{ formatTime(playbackState.currentTime) }}</span>
+    <span class="total-duration">{{ formatTime(playbackState.duration) }}</span>
+  </div>
+
+  <div class="progress-section">
+    <input 
+      type="range" 
+      id="progress"
+      [min]="0"
+      [max]="playbackState.duration || 0"
+      [value]="playbackState.currentTime"
+      (input)="onProgressChange($event)"
+    >
+  </div>
+
+  <div class="song-controls">
+    <span (click)="onPrevious()" class="control-btn">
+      <i class="fas fa-step-backward"></i>
+    </span>
+    <span (click)="onPlayPause()" class="play-btn">
+      <i [class]="playbackState.isPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+    </span>
+    <span (click)="onNext()" class="control-btn">
+      <i class="fas fa-step-forward"></i>
+    </span>
+  </div>
+
+  <div class="volume-section">
+    <i class="fas fa-volume-down volume-icon"></i>
+    <input 
+      type="range" 
+      class="volume-slider"
+      [min]="0"
+      [max]="1"
+      [step]="0.1"
+      [value]="playbackState.volume"
+      (input)="onVolumeChange($event)"
+    >
+    <i class="fas fa-volume-up volume-icon"></i>
+  </div>
+</div>
