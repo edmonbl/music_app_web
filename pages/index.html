@@ -1,0 +1,94 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player UP</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script type="module" src="../scripts/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="app-layout">
+            <!-- Left: Queue Panel -->
+            <div class="queue-panel">
+                <div class="queue-header">
+                    <h2>Up Next</h2>
+                    <div class="music-wave">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="queue-list">
+                    <div class="queue-item active">
+                        <img src="https://picsum.photos/40/40?random=1" alt="Album" class="queue-album-art">
+                        <div class="queue-item-info">
+                            <div class="queue-item-title">cancion CHIDA</div>
+                            <div class="queue-item-artist">artista 1</div>
+                        </div>
+                        <div class="now-playing-indicator">♪</div>
+                    </div>
+                    
+                    <div class="queue-item">
+                        <img src="https://picsum.photos/40/40?random=2" alt="Album" class="queue-album-art">
+                        <div class="queue-item-info">
+                            <div class="queue-item-title">cancion CHIDA 2</div>
+                            <div class="queue-item-artist">artista 1</div>
+                        </div>
+                    </div>
+                    
+                    <div class="queue-item">
+                        <img src="https://picsum.photos/40/40?random=3" alt="Album" class="queue-album-art">
+                        <div class="queue-item-info">
+                            <div class="queue-item-title">cancion CHIDA 3</div>
+                            <div class="queue-item-artist">artista 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center: Integrated Player -->
+            <div class="center-panel">
+                <div class="album-section">
+                    <div class="album-container">
+                        <img src="../media/default_img.jpg" alt="" id="song-img">
+                        <div class="vinyl-effect"></div>
+                    </div>
+                    
+                    <div class="song-info">
+                        <h1 id="title"></h1>
+                        <h3 id="artist"></h3>
+                    </div>
+                    
+                    <div class="time-display">
+                        <div class="current-time" id="current-time">0:00</div>
+                        <div class="total-duration" id="total-duration">0:00</div>
+                    </div>
+                    
+                    <div class="progress-section">
+                        <div class="audio">
+                            <audio controls id="media" hidden>
+                                <!--<source id="audio" src="" type="audio/mpeg">-->
+                            </audio>
+                            <input type="range" value="0" id="progress">
+                        </div>
+                    </div>
+
+                    <div class="song-controls">
+                        <span id="lastest">⏮</span>
+                        <span id="play" class="play">▶</span>
+                        <span id="forward">⏭</span>
+                    </div>
+                    
+                    <div class="volume-section">
+                        <span class="volume-icon">🔊</span>
+                        <input type="range" id="volume" min="0" max="100" value="50" class="volume-slider">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
