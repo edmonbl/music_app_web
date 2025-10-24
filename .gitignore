@@ -43,3 +43,6 @@ Thumbs.db
 
 # Spotify credentials
 src/app/config/spotify.config.ts
+
+# Old project directory (if it still exists)
+music-player-app/
