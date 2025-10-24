@@ -13,34 +13,7 @@ export class PlaylistService {
   public currentIndex$: Observable<number> = this.currentIndexSubject.asObservable();
 
   constructor() {
-    this.loadDefaultPlaylist();
-  }
-
-  private loadDefaultPlaylist(): void {
-    const defaultSongs: Song[] = [
-      {
-        id: '1',
-        title: 'Song 1',
-        artist: 'Artist 1',
-        albumArt: 'assets/media/default_img.jpg',
-        audioSrc: 'assets/media/song.mp3'
-      },
-      {
-        id: '2',
-        title: 'Song 2',
-        artist: 'Artist 2',
-        albumArt: 'assets/media/default_img.jpg',
-        audioSrc: 'assets/media/song_2.mp3'
-      },
-      {
-        id: '3',
-        title: 'Song 3',
-        artist: 'Artist 3',
-        albumArt: 'assets/media/default_img.jpg',
-        audioSrc: 'assets/media/song_3.mp3'
-      }
-    ];
-    this.songsSubject.next(defaultSongs);
+    // No cargar playlist por defecto, esperar a que Spotify cargue las canciones
   }
 
   getCurrentSong(): Song | null {
@@ -80,5 +53,15 @@ export class PlaylistService {
 
   getCurrentIndex(): number {
     return this.currentIndexSubject.value;
+  }
+
+  addSong(song: Song): void {
+    const currentSongs = this.songsSubject.value;
+    this.songsSubject.next([...currentSongs, song]);
+  }
+
+  setSongs(songs: Song[]): void {
+    this.songsSubject.next(songs);
+    this.currentIndexSubject.next(0);
   }
 }

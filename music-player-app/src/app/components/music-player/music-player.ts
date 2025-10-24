@@ -7,6 +7,7 @@ import { PlaybackState, Song } from '../../models/song.model';
 
 @Component({
   selector: 'app-music-player',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './music-player.html',
   styleUrl: './music-player.scss'
@@ -34,11 +35,24 @@ export class MusicPlayerComponent implements OnInit, OnDestroy {
         this.playbackState = state;
       });
 
-    // Load the first song
-    const firstSong = this.playlistService.getCurrentSong();
-    if (firstSong) {
-      this.audioService.loadSong(firstSong);
-    }
+    // Escuchar cambios en la playlist para cargar automáticamente la primera canción
+    this.playlistService.songs$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(songs => {
+        if (songs.length > 0 && !this.playbackState.currentSong) {
+          const firstSong = this.playlistService.getCurrentSong();
+          if (firstSong) {
+            this.audioService.loadSong(firstSong);
+          }
+        }
+      });
+
+    // Auto-reproducir siguiente canción cuando termina la actual
+    this.audioService.songEnded$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.onNext();
+      });
   }
 
   ngOnDestroy(): void {
@@ -54,6 +68,7 @@ export class MusicPlayerComponent implements OnInit, OnDestroy {
     const prevSong = this.playlistService.previousSong();
     if (prevSong) {
       this.audioService.loadSong(prevSong);
+      this.audioService.play();
     }
   }
 
@@ -61,6 +76,7 @@ export class MusicPlayerComponent implements OnInit, OnDestroy {
     const nextSong = this.playlistService.nextSong();
     if (nextSong) {
       this.audioService.loadSong(nextSong);
+      this.audioService.play();
     }
   }
 

@@ -1,0 +1,64 @@
+<div class="spotify-search">
+  <div class="search-header">
+    <h3><i class="fab fa-spotify"></i> Spotify</h3>
+  </div>
+
+  <div class="search-panel visible">
+    <div class="search-input-container">
+      <i class="fas fa-search"></i>
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery"
+        (input)="onSearchInput()"
+        placeholder="Buscar canciones, artistas..."
+        class="search-input"
+      >
+      <i *ngIf="searchQuery" class="fas fa-times clear-btn" (click)="searchQuery = ''; onSearchInput()"></i>
+    </div>
+
+    <div class="search-results" *ngIf="!isLoading && searchResults.length > 0">
+      <div 
+        *ngFor="let song of searchResults; let i = index" 
+        class="result-item"
+        [class.no-preview]="!song.audioSrc"
+        (click)="onSongSelect(song, i)"
+      >
+        <img [src]="song.albumArt" [alt]="song.title" class="result-img">
+        <div class="result-info">
+          <div class="result-title">{{ song.title }}</div>
+          <div class="result-artist">{{ song.artist }}</div>
+          <div class="preview-badge" *ngIf="!song.audioSrc">
+            <i class="fas fa-info-circle"></i> Sin preview
+          </div>
+        </div>
+        <button 
+          class="add-btn" 
+          (click)="addToQueue(song); $event.stopPropagation()"
+          title="Agregar a la cola"
+        >
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Cargando música...</span>
+    </div>
+
+    <div class="error-message" *ngIf="!isLoading && errorMessage">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <div class="no-results" *ngIf="!isLoading && !errorMessage && searchResults.length === 0 && searchQuery.length > 0">
+      <i class="fas fa-music"></i>
+      <span>No se encontraron resultados</span>
+    </div>
+
+    <div class="waiting-token" *ngIf="!isLoading && !hasToken && !errorMessage">
+      <i class="fas fa-clock"></i>
+      <span>Conectando con Spotify...</span>
+    </div>
+  </div>
+</div>

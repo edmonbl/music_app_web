@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Song, PlaybackState } from '../models/song.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioService {
-  private audio: HTMLAudioElement;
+  private audio!: HTMLAudioElement;
   private playbackStateSubject = new BehaviorSubject<PlaybackState>({
     isPlaying: false,
     currentTime: 0,
@@ -15,14 +16,21 @@ export class AudioService {
     currentSong: null
   });
 
-  public playbackState$: Observable<PlaybackState> = this.playbackStateSubject.asObservable();
+  private songEndedSubject = new Subject<void>();
 
-  constructor() {
-    this.audio = new HTMLAudioElement();
-    this.setupAudioEventListeners();
+  public playbackState$: Observable<PlaybackState> = this.playbackStateSubject.asObservable();
+  public songEnded$: Observable<void> = this.songEndedSubject.asObservable();
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.audio = new Audio();
+      this.setupAudioEventListeners();
+    }
   }
 
   private setupAudioEventListeners(): void {
+    if (!this.audio) return;
+    
     this.audio.addEventListener('timeupdate', () => {
       this.updatePlaybackState({
         currentTime: this.audio.currentTime
@@ -40,6 +48,8 @@ export class AudioService {
         isPlaying: false,
         currentTime: 0
       });
+      // Emitir evento de canción terminada
+      this.songEndedSubject.next();
     });
 
     this.audio.addEventListener('loadedmetadata', () => {
@@ -50,6 +60,8 @@ export class AudioService {
   }
 
   loadSong(song: Song): void {
+    if (!this.audio) return;
+    
     this.audio.src = song.audioSrc;
     this.updatePlaybackState({
       currentSong: song,
@@ -59,16 +71,18 @@ export class AudioService {
   }
 
   play(): void {
-    if (this.audio.src) {
-      this.audio.play().then(() => {
-        this.updatePlaybackState({ isPlaying: true });
-      }).catch(error => {
-        console.error('Error playing audio:', error);
-      });
-    }
+    if (!this.audio || !this.audio.src) return;
+    
+    this.audio.play().then(() => {
+      this.updatePlaybackState({ isPlaying: true });
+    }).catch(error => {
+      console.error('Error playing audio:', error);
+    });
   }
 
   pause(): void {
+    if (!this.audio) return;
+    
     this.audio.pause();
     this.updatePlaybackState({ isPlaying: false });
   }
@@ -82,11 +96,15 @@ export class AudioService {
   }
 
   setCurrentTime(time: number): void {
+    if (!this.audio) return;
+    
     this.audio.currentTime = time;
     this.updatePlaybackState({ currentTime: time });
   }
 
   setVolume(volume: number): void {
+    if (!this.audio) return;
+    
     this.audio.volume = volume;
     this.updatePlaybackState({ volume });
   }

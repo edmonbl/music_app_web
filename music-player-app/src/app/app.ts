@@ -4,6 +4,7 @@ import { QueuePanelComponent } from './components/queue-panel/queue-panel';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [MusicPlayerComponent, QueuePanelComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
