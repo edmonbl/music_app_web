@@ -2,7 +2,7 @@
 
 Una aplicación de reproductor de música moderna construida con **Angular 20** e integrada con la **API de Spotify**.
 
-
+Si, por cosas de la API del propio Spotify (ni idea de por qué), no deja reproducir ninguna canción, ni con previews, pero si aparecen.
 
 ![Angular](https://img.shields.io/badge/Angular-20-DD0031?style=flat&logo=angular)
 
