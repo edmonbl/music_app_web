@@ -147,4 +147,4 @@ For more information on using the Angular CLI, including detailed command refere
 
 ## 👨‍💻 Autor
 
-**Edmon BL** - [@edmonbl](https://github.com/edmonbl)
+**Eduardo M.N.** - [@edmonbl](https://github.com/edmonbl)
