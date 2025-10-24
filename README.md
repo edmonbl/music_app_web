@@ -1,6 +1,4 @@
 # Music Player App 
-# Angular Music Player App
-
 
 Una aplicación de reproductor de música moderna construida con **Angular 20** e integrada con la **API de Spotify**.
 
