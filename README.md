@@ -1,4 +1,5 @@
-# Music Player App # Angular Music Player App
+# Music Player App 
+# Angular Music Player App
 
 
 Una aplicación de reproductor de música moderna construida con **Angular 20** e integrada con la **API de Spotify**.
@@ -9,7 +10,7 @@ Una aplicación de reproductor de música moderna construida con **Angular 20** 
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat&logo=typescript)
 
-![Spotify API](https://img.shields.io/badge/Spotify-API-1DB954?style=flat&logo=spotify)🎵 **Modern Design**: Symmetrical 600x600px square layout with glass morphism effects  
+![Spotify API](https://img.shields.io/badge/Spotify-API-1DB954?style=flat&logo=spotify)
 
 
 ##  Autor
